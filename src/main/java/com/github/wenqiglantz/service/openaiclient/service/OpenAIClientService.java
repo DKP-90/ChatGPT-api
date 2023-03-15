@@ -25,6 +25,7 @@ public class OpenAIClientService {
 
     public ChatGPTResponse chat(ChatRequest chatRequest){
         String finalQuestion=AddClarity(chatRequest.getQuestion());
+        System.out.println(finalQuestion);
         Message message = Message.builder()
                 .role(ROLE_USER)
                 .content(finalQuestion)
@@ -34,6 +35,7 @@ public class OpenAIClientService {
                 .messages(Collections.singletonList(message))
                 .build();
         return openAIClient.chat(chatGPTRequest);
+//        return null;
     }
 
     public WhisperTranscriptionResponse createTranscription(TranscriptionRequest transcriptionRequest){
@@ -45,10 +47,14 @@ public class OpenAIClientService {
     }
 
     public String AddClarity(String text) {
-            return text.toLowerCase()
-                    .replaceAll("\s+", " ")
-                    .replaceAll(" i-9 ", " employment eligibility verification ")
-                    .replaceAll(" i 9 ", " employment eligibility verification ")
-                    .replaceAll(" i9 ", " employment eligibility verification ");
+        text.toLowerCase()
+                .replaceAll("\s+", " ")
+                .replaceAll(" i-9 ", " employment eligibility verification ")
+                .replaceAll(" i 9 ", " employment eligibility verification ")
+                .replaceAll(" i9 ", " employment eligibility verification ");
+        if(!text.contains(" employment eligibility verification ")){
+           text= text.concat(" , in a employment eligibility verification form");
+        }
+        return text;
     }
 }
