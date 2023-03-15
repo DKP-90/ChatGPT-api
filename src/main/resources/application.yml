@@ -4,7 +4,7 @@ server:
     context-path: /
 
 openai-service:
-  api-key: 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
+  api-key: ################
   gpt-model: gpt-3.5-turbo
   audio-model: whisper-1
   http-client:
